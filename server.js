@@ -1,19 +1,15 @@
-// Setup empty JS object to act as endpoint for all routes
-projectData = [];
-// projectData = {};
-
 // Require Express to run server and routes
-const express = require('express');
 // Start up an instance of app
+const express = require('express');
 const app = express();
 const port = 3000;
-
 const bodyParser = require('body-parser')
+const cors = require('cors')
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
+app.use(cors())
 // Cors for cross origin allowance
 // Initialize the main project folder
 app.use(express.static('website'));
@@ -24,24 +20,18 @@ const server  = app.listen(port, listening);
 function listening(){
   console.log(`running on localhost: ${port}`)
 }
-// GET route
-app.get('/', sendData);
+// Setup empty JS object to act as endpoint for all routes
+projectData = {};
 
-function sendData(req, res) {
+// GET route
+app.get('/getData', (req, res) => {
   res.send(projectData);
   console.log(projectData)
-};
+});
 
 // POST route
-app.post('/add', postData);
-
-function postData(req, res) {
-  const newWeatherJournal = {
-    temperature: req.body.temperature,
-    date: req.body.date,
-    userResponse: req.body.userResponse
-  };
-  projectData.push(newWeatherJournal);
-  res.send(projectData);
-}
+app.post('/postData', (req, res) => {
+  
+  projectData = req.body;
+});
 
