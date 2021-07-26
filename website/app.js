@@ -35,7 +35,7 @@ function genButton(e) {
   
 }
 
-//get weather data with URL keys
+//fetch weather data with URL keys
 const getWeather = async (baseURL, zip, apiKey) => {
   const res = await fetch(baseURL + zip + apiKey);
   // call API
