@@ -10,8 +10,7 @@ let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 const zipCode = document.getElementById('zip');
 const feelingsMsg = document.getElementById('feelings');
 
-//UI elements
-
+//gen button
 document.getElementById('generate').addEventListener('click', genButton);
 
 function genButton(e) {
@@ -21,9 +20,8 @@ function genButton(e) {
     getWeather(baseURL, zip, apiKey)
       .then(function (weatherData) {
         const temperature = weatherData.main.temp;
-        const feeling = feelings;
         postData('/postData', {
-          temp: temperature, date: newDate, feeling: feeling
+          temp: temperature, date: newDate, feeling: feelings
         })
           .then(() => {
             updateUI()
@@ -83,6 +81,8 @@ const updateUI = async () => {
   const request = await fetch('/getData');
   try {
     const allData = await request.json();
+    console.log(allData)
+    document.getElementById('city').innerHTML = allData["name"]
     document.getElementById('date').innerHTML = allData["date"];
     document.getElementById('temp').innerHTML = allData["temp"];
     document.getElementById('content').innerHTML = allData["feeling"];
