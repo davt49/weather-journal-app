@@ -31,7 +31,7 @@ app.get('/getData', (req, res) => {
 
 // POST route
 app.post('/postData', (req, res) => {
-  
   projectData = req.body;
+  res.send(projectData);
 });
 
